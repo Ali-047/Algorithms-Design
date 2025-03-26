@@ -12,6 +12,13 @@ class BloomFilter:
         
         def _hashe (Self , item):
             hash_obj = hashlib.md5((item + str(seed)).encode('utf-8'))
+            hash_digest = hash_obj.hexdigest()
+            return int(hash_digest , 16 ) % self.size
+        
+        def add(self , item ) :
+            for seed in range (self.hash_count):
+                result = self ._hash(item , seed)
+                self.bit_array[result]=1
                   
         
         
