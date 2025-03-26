@@ -29,18 +29,9 @@ class BloomFilter:
                      return True
                  
                  
-                 #example item 
-                 
-                 bf=BloomFilter(size=1000 , hash_count=5)
-                 bf.add ("example_item")
-                 
-                 if bf.check("example_item"):
-                   print ("this item is founded" )
-                 else :
-                     print ("this item not found yet ")
-                 
-                  
-        
+              
+
+
         
 
         
