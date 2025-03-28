@@ -9,9 +9,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <header-components/>
-  <div style="text-decoration-color: crimson;font-size: 200px" class="" >hi home</div>
-  <footer-components/>
+  <div>
+    <header-components/>
+    <div style="height:2000px">
+    </div>
+    <footer-components/>
+  </div>
 </template>
 
 <style scoped lang="scss">
