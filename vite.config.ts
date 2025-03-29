@@ -32,9 +32,18 @@ export default defineConfig({
         tailwindcss()
 
     ],
+    server: {
+        proxy: {
+            '^/api': {
+                target: process.env.VITE_API_BASEURL,
+                changeOrigin: true,
+                secure: false
+            }
+        }
+    },
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
         extensions: [
             '.js',

@@ -2,5 +2,6 @@
 @theme {
     --color-primary: #1d4ed8;
     --color-secondary: #9333ea;
+    --color-gray: oklch(0.269 0 0);
     --spacing-1: 0.25rem;
 }
