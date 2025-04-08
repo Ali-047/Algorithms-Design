@@ -20,7 +20,7 @@
           <div>Start Exam</div>
         </div>
       </div>
-      <div class="me-10 flex gap-2">
+      <div @click="$router.push({name:'auth',params:{type:'login'}})" class="me-10 flex gap-2">
         <img src="@/assets/icon/login.svg"/>
         <div>Log in</div>
       </div>

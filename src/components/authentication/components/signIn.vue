@@ -4,7 +4,7 @@
 
 <template>
   <div class="flex-col">
-    <div class="flex flex-col justify-between items-center w-[500px] h-[500px] pb-6">
+    <div class="flex flex-col justify-between items-center w-[500px] h-[500px] pb-6 pt-6">
       <img src="@/assets/loginLogo.svg">
       <filed-input type="text" width="400px" placeholder="userName"/>
       <div class="flex gap-4">

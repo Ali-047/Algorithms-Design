@@ -1,7 +1,15 @@
 @import "tailwindcss";
+
 @theme {
-    --color-primary: #1d4ed8;
-    --color-secondary: #9333ea;
+    --color-primary: #9333ea;
     --color-gray: oklch(0.269 0 0);
+    --color-gray-dark:oklch(0.17 0 0);
     --spacing-1: 0.25rem;
+}
+.input_text {
+    @apply border-b border-gray-300 py-1 focus:border-b-2 focus:border-primary transition-colors focus:outline-none bg-inherit
+}
+
+.input_text_label {
+    @apply absolute text-[15px] text-white left-0 cursor-text
 }

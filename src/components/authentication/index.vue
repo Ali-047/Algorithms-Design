@@ -6,7 +6,7 @@ console.log(router.params.type);
 <template>
   <!--  <div>hello authentication</div>-->
   <div class="background flex  justify-around items-center  w-[100vw] h-[100vh]">
-    <div class="rounded-2xl  bg-gray-dark flex justify-around items-center">
+    <div class=" rounded-2xl  bg-gray-dark flex justify-around items-center">
       <login-app v-if="router.params.type === 'login'"/>
       <sign-in v-else/>
     </div>
