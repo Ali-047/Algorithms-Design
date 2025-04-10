@@ -9,7 +9,7 @@
         </div>
         <div class="flex gap-2">
           <img src="@/assets/icon/abut_us.svg"/>
-          <div>aboutUs</div>
+          <div>About Us</div>
         </div>
         <div class="flex gap-2">
           <img src="@/assets/icon/call.svg"/>
