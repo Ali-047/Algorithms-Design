@@ -8,7 +8,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AboutUsComponents: typeof import('./components/home/components/AboutUsComponents.vue')['default']
     Authentication: typeof import('./components/authentication/index.vue')['default']
+    ContactUsComponents: typeof import('./components/home/components/ContactUsComponents.vue')['default']
     FiledInput: typeof import('./components/filedInput.vue')['default']
     FooterComponents: typeof import('./components/home/components/FooterComponents.vue')['default']
     HeaderComponents: typeof import('./components/home/components/HeaderComponents.vue')['default']
