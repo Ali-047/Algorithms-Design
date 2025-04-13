@@ -11,3 +11,5 @@ class Student(AbstractUser):
 
 
 
+class Question(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
