@@ -13,7 +13,7 @@ onMounted(() => {
 <template>
   <div>
     <header-components/>
-    <div style="height:2000px">
+    <div>
       <about-us-components/>
       <contact-us-components/>
     </div>
