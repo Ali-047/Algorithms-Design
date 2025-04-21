@@ -53,7 +53,21 @@ def levenshtein_distance(s1, s2):
     return dp[m][n]
  
             
-    
+    # Function to extract common identical sequences (including spaces) using difflib.
+def get_common_sequences(s1, s2, min_len=2):
+    """
+    Returns a list of common identical substrings between s1 and s2
+    that have a length of at least min_len.
+    """
+    matcher = difflib.SequenceMatcher(None, s1, s2)
+    blocks = matcher.get_matching_blocks()[:-1]  # Remove the dummy block.
+    common = []
+    for block in blocks:
+        if block.size >= min_len:
+            substring = s1[block.a: block.a + block.size]
+            if substring not in common:
+                common.append(substring)
+    return common
         
         
          
