@@ -70,4 +70,9 @@ def get_common_sequences(s1, s2, min_len=2):
     return common
         
         
-         
+ # Main GUI Application class using Tkinter.
+    class MainApp:
+            def __init__(self, master):
+                self.master = master
+                master.title("Text Similarity Analyzer")
+                master.geometry("600x600")
