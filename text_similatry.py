@@ -47,6 +47,12 @@ class MainApp:
             self.master = master
             master.title("Text Similarity Analyzer")
             master.geometry("600x600")
+            self.bloom_filter = BloomFilter(size=1000, hash_count=3)
+            
+            #label and text widget for the first text 
+            self.label1 = tk.Label(master , text="Please Enter Your Text")
+            self.label1.pack(pady=5)
+            
         except Exception as e:
             raise ValueError(f"Error initializing GUI: {str(e)}")
 
