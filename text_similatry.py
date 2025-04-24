@@ -52,6 +52,16 @@ class MainApp:
             #label and text widget for the first text 
             self.label1 = tk.Label(master , text="Please Enter Your Text")
             self.label1.pack(pady=5)
+            self.text1 = tk.Text(master , hight=8 , width=70)
+            self.text2.pack(pady=5)
+            
+            # Button to trigger analysis.
+            self.compare_button = tk.Button(master, text="Analyze Similarity", command=self.analyze_texts)
+            self.compare_button.pack(pady=10)
+            
+            # Label to display the result and explanation.
+            self.result_label = tk.Label(master, text="", justify="left", wraplength=500)
+            self.result_label.pack(pady=10)
             
         except Exception as e:
             raise ValueError(f"Error initializing GUI: {str(e)}")
