@@ -78,9 +78,19 @@ class MainApp:
             text1 = self.text1.get("1.0", tk.END).strip()
             text2 = self.text2.get("1.0", tk.END).strip()
             
-            if not text1 or not text2:
-                self.result_label.config(text="Please enter both texts to compare")
+            # Enhanced empty input validation
+            if not text1 and not text2:
+                self.result_label.config(text="Error: Both text boxes are empty. Please enter text to compare.", fg="red")
                 return
+            elif not text1:
+                self.result_label.config(text="Error: First text box is empty. Please enter text to compare.", fg="red")
+                return
+            elif not text2:
+                self.result_label.config(text="Error: Second text box is empty. Please enter text to compare.", fg="red")
+                return
+            
+            # Reset text color for normal results
+            self.result_label.config(fg="black")
             
             # Add words to Bloom filter and check overlap
             words1 = text1.lower().split()
