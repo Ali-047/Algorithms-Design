@@ -1,23 +1,56 @@
 <script setup lang="ts">
+import * as yup from 'yup';
+import {useField, useForm} from "vee-validate";
+
+type FormValues = {
+  username: string;
+  password: string;
+};
+const schema = yup.object({
+  username: yup.string().required("You have not entered your username.").min(6, "The username must be at least 6 characters long."),
+  password: yup.string().required("Enter your password"),
+});
+
+
+const { handleSubmit,errors ,submitForm} = useForm<FormValues>({
+  validationSchema: schema
+})
+const { value: usernameValue, errorMessage: usernameError } = useField('username')
+const { value: passwordValue, errorMessage: passwordError } = useField('password')
+const onSubmit = (values: FormValues) => {
+  submitForm(values)
+  console.log(errors.value)
+if (!Object.keys(errors.value).length && !!usernameValue.value && !!passwordValue.value ) {
+  alert(`ورود موفق!\nنام کاربری: ${usernameValue.value}\nرمز عبور: ${passwordValue.value}`)
+}
+}
+
 </script>
 
 <template>
-<div class="flex flex-col w-[500px] h-[500px] items-center pb-6">
-  <div class="flex flex-col justify-between items-center w-full h-full pt-5 pb-8">
-    <div class="flex justify-around">
-      <img src="@/assets/loginLogo.svg">
+  <div class="flex flex-col w-[500px] h-[500px] items-center pb-6">
+    <form @submit.prevent="onSubmit" class="pt-5 pb-8  w-full h-full">
+      <div class="flex flex-col justify-between items-center w-full h-full">
+        <div class="flex justify-around">
+          <img src="@/assets/loginLogo.svg">
+        </div>
+        <filed-input :error="usernameError" v-model="usernameValue" type="text" width="400px" placeholder="userName"/>
+        <filed-input :error="passwordError" v-model="passwordValue" type="password" width="400px" placeholder="password"/>
+        <div class="flex justify-around">
+          <a  class="w-fit">
+            <button type="submit" class="buton1">login</button>
+            <div class="back"></div>
+          </a>
+        </div>
+      </div>
+    </form>
+    <div class="text-white text-xs flex gap-1">Don't have an account ?
+      <router-link :to="{name:'auth',params:{type:'signUp'}}">
+        <div class="text-primary hover:text-blue-600"> Sign up now</div>
+      </router-link>
     </div>
-    <filed-input type="text" width="400px" placeholder="userName"/>
-    <filed-input type="password" width="400px" placeholder="password"/>
-    <div class="flex justify-around">
-      <a class="w-fit">
-        <div class="buton1">login</div>
-        <div class="back"></div>
-      </a>
-    </div>
+
   </div>
-  <div class="text-white text-xs flex gap-1">Don't have an account ? <router-link  :to="{name:'auth',params:{type:'signUp'}}"><div class="text-primary hover:text-blue-600"> Sign up now</div></router-link>.</div>
-</div>
 </template>
 
 <style scoped lang="scss">

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="w-full bg-black h-190 grid grid-cols-2 gap-15 justify-items-center text-white">
+  <div class="w-full  h-190 grid grid-cols-2 gap-15 justify-items-center text-white isOnScreen" id="contactUs">
     <div class="flex flex-col">
       <div class="ml-20">
         <h1 class="font-bold text-4xl leading-tight">
@@ -21,13 +21,13 @@
           <h2 class="text-3xl mb-5">Pedram Aminian</h2>
           <div class="flex gap-5">
             <a href="">
-              <img src="../../../assets/icon/github.svg" alt="" class="w-[30px] hover:shadow-white" />
+              <img src="@/assets/icon/github.svg" alt="" class="w-[30px] hover:shadow-white" />
             </a>
             <a href="">
-              <img src="../../../assets/icon/telegram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/telegram.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/instagram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/instagram.svg" alt="" class="w-[30px]">
             </a>
           </div>
         </div>
@@ -35,13 +35,13 @@
           <h2 class="text-3xl mb-5">Mohammad yousef Rezaei</h2>
           <div class="flex gap-5">
             <a href="">
-              <img src="../../../assets/icon/github.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/github.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/telegram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/telegram.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/instagram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/instagram.svg" alt="" class="w-[30px]">
             </a>
           </div>
         </div>
@@ -49,13 +49,13 @@
           <h2 class="text-3xl mb-5">Ali Nemati</h2>
           <div class="flex gap-5">
             <a href="">
-              <img src="../../../assets/icon/github.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/github.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/telegram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/telegram.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/instagram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/instagram.svg" alt="" class="w-[30px]">
             </a>
           </div>
         </div>
@@ -63,20 +63,20 @@
           <h2 class="text-3xl mb-5">Amir Reza Ghorbani</h2>
           <div class="flex gap-5">
             <a href="">
-              <img src="../../../assets/icon/github.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/github.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/telegram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/telegram.svg" alt="" class="w-[30px]">
             </a>
             <a href="">
-              <img src="../../../assets/icon/instagram.svg" alt="" class="w-[30px]">
+              <img src="@/assets/icon/instagram.svg" alt="" class="w-[30px]">
             </a>
           </div>
         </div>
       </div>
     </div>
     <div class="mt-15">
-      <img src="../../../assets/images/exam2.jpg" alt="">
+      <img src="@/assets/images/exam2.jpg" alt="">
     </div>
   </div>
 </template>

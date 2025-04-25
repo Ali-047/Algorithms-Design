@@ -1,4 +1,36 @@
 <script setup lang="ts">
+import * as yup from 'yup';
+import {useField, useForm} from "vee-validate";
+
+type FormValues = {
+  username: string;
+  password: string;
+  email: string;
+  configPassword: string;
+};
+const schema = yup.object({
+  username: yup.string().required("You have not entered your username.").min(6, "The name must be at least 6 characters long."),
+  password: yup.string().min(8,"The password must be at least 8 characters long.").required("Enter your password"),
+  email: yup.string().required().email("Please enter a valid email address."),
+  configPassword: yup.string().oneOf([yup.ref('password')], 'Please enter a valid password'),
+});
+
+
+const {handleSubmit, errors,submitForm} = useForm<FormValues>({
+  validationSchema: schema
+})
+const {value: usernameValue, errorMessage: usernameError} = useField('username')
+const {value: passwordValue, errorMessage: passwordError} = useField('password')
+const {value: emailValue, errorMessage: emailError} = useField('email')
+const {value: configPasswordValue, errorMessage: configPasswordError} = useField('configPassword')
+const onSubmit = (values: FormValues) => {
+  console.log(errors.value)
+submitForm(values)
+  if (!Object.keys(errors.value).length && !!usernameValue.value && !!passwordValue.value && !!emailValue.value  ) {
+    alert(`ورود موفق!\nنام کاربری: ${usernameValue.value}\nرمز عبور: ${passwordValue.value}`)
+
+  }
+}
 
 </script>
 
@@ -6,27 +38,30 @@
   <div class="flex-col">
     <div class="flex flex-col justify-between items-center w-[500px] h-[500px] pb-6 pt-6">
       <img src="@/assets/loginLogo.svg">
-      <filed-input type="text" width="400px" placeholder="userName"/>
-      <div class="flex gap-4">
-        <filed-input type="password" width="190px" placeholder="password"/>
-        <filed-input type="password" width="190px" placeholder="config password"/>
-      </div>
-      <filed-input type="email" width="400px" placeholder="email"/>
-      <div class="flex justify-around">
-        <a class="w-fit">
-          <div class="buton1">sign up</div>
-          <div class="back"></div>
-        </a>
+      <form  @submit.prevent="onSubmit" class="h-full flex flex-col justify-between items-center">
+        <filed-input type="text" width="400px" v-model="usernameValue" :error="usernameError" placeholder="userName"/>
+        <div class="flex gap-4">
+          <filed-input type="password" width="190px" v-model="passwordValue" :error="passwordError"
+                       placeholder="password"/>
+          <filed-input type="password" width="190px" placeholder="config password" v-model="configPasswordValue" :error="configPasswordError"/>
+        </div>
+        <filed-input v-model="emailValue" :error="emailError" type="email" width="400px" placeholder="email"/>
+        <div class="flex justify-around">
+          <a class="w-fit">
+            <button type="submit" class="buton1">sign up</button>
+            <div class="back"></div>
+          </a>
+        </div>
+      </form>
+    </div>
+    <div class="flex mt-3 mb-9">
+      <div class="text-white text-xs flex items-center mx-auto  gap-1">if you have account ?
+        <router-link :to="{name:'auth',params:{type:'login'}}">
+          <div class="text-primary hover:text-blue-600"> login now</div>
+        </router-link>
+        .
       </div>
     </div>
-<div class="flex mt-3 mb-9">
-  <div class="text-white text-xs flex items-center mx-auto  gap-1">if you have account ?
-    <router-link :to="{name:'auth',params:{type:'login'}}">
-      <div class="text-primary hover:text-blue-600"> login now</div>
-    </router-link>
-    .
-  </div>
-</div>
   </div>
 </template>
 
