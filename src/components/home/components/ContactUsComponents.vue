@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="w-full bg-black h-190 grid grid-cols-2 gap-15 justify-items-center text-white">
+  <div class="w-full  h-190 grid grid-cols-2 gap-15 justify-items-center text-white">
     <div class="flex flex-col">
       <div class="ml-20">
         <h1 class="font-bold text-4xl leading-tight">
