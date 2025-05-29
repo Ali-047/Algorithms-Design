@@ -1,5 +1,6 @@
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -61,7 +62,7 @@ class RegisterAPIView(APIView):
         except CustomUser.DoesNotExist:
             return Response(data={"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        user_serializer = UserSerializer(instance=user)  # استفاده از instance به جای data
+        user_serializer = UserSerializer(instance=user)
 
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
@@ -84,8 +85,55 @@ class RegisterAPIView(APIView):
 
 class StartQuestionnaireView(APIView):
     def get(self, request):
-        first_question = Question.objects.get(id = 1)
+        first_question = Question.objects.get(id=1)
         if not first_question:
             return Response({"error": "No questions available"}, status=status.HTTP_404_NOT_FOUND)
         return Response(data={"question": QuestionSerializer(first_question).data}, status=status.HTTP_200_OK)
 
+
+class SubmitAnswerView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        if not username:
+            return Response(data={'error': 'nationalID missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = CustomUser.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return Response(data={'error': 'user with this student code does not exist'},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        question_name = request.data.get('question')
+        if not question_name:
+            return Response(data={'error': 'question missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+        question = get_object_or_404(Question, name=question_name)
+
+        text_answer = request.data.get('text_answer')
+        if not text_answer:
+            return Response(data={'error': 'text_answer missing for open-ended question'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            answer = Answer(
+                question=question,
+                text_answer=text_answer
+            )
+            answer.user.add(user)
+            answer.save()
+        except ValidationError as e:
+            return Response(data={'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(f"Error saving answer: {str(e)}")
+            return Response(data={'error': f'Failed to save answer: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+
+        questionid = question.id
+        questionid += 1
+        next_question = Question.objects.get(
+            id__gt=questionid
+        )
+
+        if not next_question:
+            return Response({"message": "Questionnaire completed"}, status=status.HTTP_202_ACCEPTED)
+
+        return Response(data={'question': QuestionSerializer(next_question).data}, status=status.HTTP_200_OK)
