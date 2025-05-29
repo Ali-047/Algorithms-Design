@@ -18,15 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        # به‌روزرسانی فیلدها
         instance.username = validated_data.get('username', instance.username)
         instance.is_company = validated_data.get('is_company', instance.is_company)
         instance.name = validated_data.get('name', instance.name)
 
-        # مدیریت رمز عبور
         password = validated_data.get('password')
         if password:
-            instance.set_password(password)  # رمز عبور را به صورت ایمن به‌روزرسانی می‌کند
+            instance.set_password(password)
 
         instance.save()
         return instance
