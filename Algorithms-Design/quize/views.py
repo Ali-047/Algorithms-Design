@@ -80,3 +80,12 @@ class RegisterAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class StartQuestionnaireView(APIView):
+    def get(self, request):
+        first_question = Question.objects.get(id = 1)
+        if not first_question:
+            return Response({"error": "No questions available"}, status=status.HTTP_404_NOT_FOUND)
+        return Response(data={"question": QuestionSerializer(first_question).data}, status=status.HTTP_200_OK)
+
