@@ -6,6 +6,7 @@ class CustomUser(AbstractUser):
     email = models.CharField(max_length=150, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     username = models.CharField(max_length=11, blank=True, null=True, unique=True)
+
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='custom_user_groups',
@@ -44,7 +45,7 @@ class Answer(models.Model):
     text_answer = models.TextField(null=True, blank=True)
 
     class Meta:
-        unique_together = ('questionnaire', 'question')
+        unique_together = ('question','user')
 
 
 

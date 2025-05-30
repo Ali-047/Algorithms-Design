@@ -19,7 +19,6 @@ class RegisterAPIView(APIView):
             name = data.get('name')
             username = data.get('username')
             password = data.get('password')
-            repeat_password = data.get('repeatPassword')
             is_company = data.get('is_company')
         except KeyError as e:
             return Response({'error': f'Missing field: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
@@ -30,10 +29,6 @@ class RegisterAPIView(APIView):
             return Response({'error': 'username is missing'}, status=status.HTTP_400_BAD_REQUEST)
         if not password:
             return Response({'error': 'password is missing'}, status=status.HTTP_400_BAD_REQUEST)
-        if not is_company:
-            return Response({'error': 'is_company is missing'}, status=status.HTTP_400_BAD_REQUEST)
-        if password != repeat_password:
-            return Response({'error': 'رمز عبور و تکرار آن با هم برابر نیست'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             if CustomUser.objects.filter(username=username).exists():
@@ -43,7 +38,6 @@ class RegisterAPIView(APIView):
                 username=username,
                 password=password,
                 name=name,
-                is_company=is_company
             )
             user_serializer = UserSerializer(user)
         except IntegrityError:
@@ -119,7 +113,7 @@ class SubmitAnswerView(APIView):
                 question=question,
                 text_answer=text_answer
             )
-            answer.user.add(user)
+            answer.user = user
             answer.save()
         except ValidationError as e:
             return Response(data={'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -127,11 +121,10 @@ class SubmitAnswerView(APIView):
             print(f"Error saving answer: {str(e)}")
             return Response(data={'error': f'Failed to save answer: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
 
-        questionid = question.id
-        questionid += 1
-        next_question = Question.objects.get(
-            id__gt=questionid
-        )
+        next_question = Question.objects.filter(
+            id__gt=question.id
+        ).order_by('id').first()
+        print(next_question)
 
         if not next_question:
             return Response({"message": "Questionnaire completed"}, status=status.HTTP_202_ACCEPTED)

@@ -19,7 +19,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
-        instance.is_company = validated_data.get('is_company', instance.is_company)
         instance.name = validated_data.get('name', instance.name)
 
         password = validated_data.get('password')
@@ -31,8 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    options = serializers.SerializerMethodField()
-    question_type = serializers.CharField()
 
     class Meta:
         model = Question
