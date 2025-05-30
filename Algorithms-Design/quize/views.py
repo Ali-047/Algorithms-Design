@@ -6,8 +6,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import *
 from .serializers import *
+from .text_similatry import analyze_similarity
+from django.db.models import Prefetch
+from itertools import combinations
 
-from .text_similatry import *
 
 
 # Create your views here.
@@ -130,3 +132,40 @@ class SubmitAnswerView(APIView):
             return Response({"message": "Questionnaire completed"}, status=status.HTTP_202_ACCEPTED)
 
         return Response(data={'question': QuestionSerializer(next_question).data}, status=status.HTTP_200_OK)
+
+
+class SimilarityAPIView(APIView):
+    def get(self, request):
+        users = CustomUser.objects.prefetch_related(
+            Prefetch('answers', queryset=Answer.objects.select_related('question'))
+        ).all()
+
+        similarity_results = {}
+
+        user_pairs = combinations(users, 2)
+
+        for user1, user2 in user_pairs:
+            user1_answers = {answer.question_id: answer.text_answer for answer in user1.answers.all()}
+            user2_answers = {answer.question_id: answer.text_answer for answer in user2.answers.all()}
+
+            common_questions = set(user1_answers.keys()) & set(user2_answers.keys())
+
+            if not common_questions:
+                similarity_results[f"user {user1.name} and user {user2.name}"] = 0
+                continue
+
+            similarities = []
+            for question_id in common_questions:
+                text1 = user1_answers[question_id]
+                text2 = user2_answers[question_id]
+
+                if text1 and text2:
+                    similarity = analyze_similarity(text1, text2)
+                    similarities.append(similarity)
+
+            average_similarity = sum(similarities) / len(similarities) if similarities else 0
+
+            similarity_results[f"user {user1.name} and user {user2.name}"] = round(average_similarity, 2)
+
+        return Response(similarity_results, status=status.HTTP_200_OK)
+

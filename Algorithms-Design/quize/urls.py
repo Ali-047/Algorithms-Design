@@ -10,4 +10,5 @@ urlpatterns = [
     path('register/',RegisterAPIView.as_view(),name = 'sign up'),
     path('start/questionnaire/',StartQuestionnaireView.as_view(),name = 'StartQuestionnaire'),
     path('submit/answer/',SubmitAnswerView.as_view(),name = 'submitAnswer'),
+    path('similarity/', SimilarityAPIView.as_view(),name = 'similarity'),
 ]

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 # Create your models here.
 class CustomUser(AbstractUser):
     email = models.CharField(max_length=150, blank=True, null=True)
@@ -26,17 +27,15 @@ class CustomUser(AbstractUser):
         return self.username
 
 
-
-
 class Question(models.Model):
     name = models.CharField(max_length=50, unique=True)
     text = models.TextField()
     num_of_question = models.IntegerField()
     all_questions = models.IntegerField()
 
-
     def __str__(self):
         return self.name
+
 
 class Answer(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='answers')
@@ -45,13 +44,12 @@ class Answer(models.Model):
     text_answer = models.TextField(null=True, blank=True)
 
     class Meta:
-        unique_together = ('question','user')
-
-
+        unique_together = ('question', 'user')
 
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.question
+
+        return f"Answer to {self.question.name} by {self.user.name}"
