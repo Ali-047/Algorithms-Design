@@ -100,17 +100,7 @@ def get_common_sequences(s1, s2, min_len=2):
         raise ValueError(f"Error finding common sequences: {str(e)}")
 
 def analyze_similarity(text1, text2):
-    """Analyze the similarity between two texts using multiple algorithms.
-    
-    Args:
-        text1 (str): First text to compare
-        text2 (str): Second text to compare
-        
-    Returns:
-        dict: A dictionary containing similarity analysis results
-    """
     try:
-        # Input validation
         if not isinstance(text1, str) or not isinstance(text2, str):
             raise TypeError("Both inputs must be strings")
         if not text1 or not text2:
@@ -138,37 +128,10 @@ def analyze_similarity(text1, text2):
         max_len = max(len(text1), len(text2))
         lev_similarity = 1 - (lev_distance / max_len if max_len > 0 else 0)
         
-        # Find common sequences
-        common_seqs = get_common_sequences(text1, text2, min_len=3)
-        
         # Calculate overall similarity score (weighted average)
-        similarity_score = (bloom_similarity * 0.3 + jaccard_score * 0.4 + lev_similarity * 0.3) * 100
+        similarity_score = round((bloom_similarity * 0.3 + jaccard_score * 0.4 + lev_similarity * 0.3) * 100)
         
-        # Determine similarity level
-        if similarity_score > 80:
-            similarity_level = "High"
-            explanation = "The texts are very similar"
-        elif similarity_score > 50:
-            similarity_level = "Moderate"
-            explanation = "The texts share some common elements"
-        else:
-            similarity_level = "Low"
-            explanation = "The texts are mostly different"
-
-        # Prepare result dictionary
-        result = {
-            "similarity_score": round(similarity_score, 1),
-            "similarity_level": similarity_level,
-            "explanation": explanation,
-            "detailed_metrics": {
-                "bloom_filter_similarity": round(bloom_similarity * 100, 1),
-                "jaccard_similarity": round(jaccard_score * 100, 1),
-                "levenshtein_similarity": round(lev_similarity * 100, 1)
-            },
-            "common_phrases": common_seqs if common_seqs else []
-        }
-        
-        return result
+        return similarity_score
         
     except (TypeError, ValueError) as e:
         raise e
