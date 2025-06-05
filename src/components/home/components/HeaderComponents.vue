@@ -3,15 +3,15 @@
     <div id="header" class="flex h-22 justify-between px-5 text-white items-center" :class="handelScroll">
       <img src="@/assets/logo.svg">
       <div class="flex justify-between w-[500px]  text-lg items-center">
-        <div @click="console.log(isOnTop)" class="flex gap-2 cursor-pointer">
+        <div class="flex gap-2 cursor-pointer" @click="scrollToSection('home')">
           <img src="@/assets/icon/home.svg"/>
           <div>Home</div>
         </div>
-        <div class="flex gap-2 cursor-pointer">
+        <div class="flex gap-2 cursor-pointer" @click="scrollToSection('about')">
           <img src="@/assets/icon/abut_us.svg"/>
           <div>About Us</div>
         </div>
-        <div class="flex gap-2 cursor-pointer">
+        <div class="flex gap-2 cursor-pointer" @click="scrollToSection('contact')">
           <img src="@/assets/icon/call.svg"/>
           <div>Contact Us</div>
         </div>
@@ -41,6 +41,19 @@ onMounted(() => {
 const handelScroll = computed(() => {
   return isOnTop.value ? "fixed w-[99vw] rounded-lg mt-3" : "relative w-full";
 });
+
+function scrollToSection(section: string) {
+  const el = document.getElementById(sectionMap[section]);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+const sectionMap: Record<string, string> = {
+  home: 'top',
+  about: 'about-us',
+  contact: 'contact-us',
+};
 </script>
 
 <style scoped lang="scss">

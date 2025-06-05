@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 
+const contactUsSection = ref<HTMLElement | null>(null);
+
+defineExpose({ contactUsSection });
 </script>
 
 <template>
+  <section ref="contactUsSection" id="contact-us"></section>
   <div class="w-full  h-190 grid grid-cols-2 gap-15 justify-items-center text-white">
     <div class="flex flex-col">
       <div class="ml-20">

@@ -14,8 +14,9 @@ onMounted(() => {
 <template>
   <div>
     <header-components/>
+    <section id="top"></section>
     <div>
-      <image-slider-components />
+      <image-slider-components/>
       <about-us-components/>
       <contact-us-components/>
     </div>

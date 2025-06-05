@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 
+const aboutUsSection = ref<HTMLElement | null>(null);
+
+defineExpose({ aboutUsSection });
 </script>
 
 <template>
+  <section ref="aboutUsSection" id="about-us"></section>
   <div class="w-full h-250 mt-5 flex flex-col text-white">
     <div class="ml-20 mt-15">
       <h1 class="font-bold text-4xl leading-tight">
