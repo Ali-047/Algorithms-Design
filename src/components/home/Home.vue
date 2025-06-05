@@ -5,6 +5,7 @@ import FooterComponents from "./components/FooterComponents.vue";
 import AboutUsComponents from "@/components/home/components/AboutUsComponents.vue";
 import ContactUsComponents from "@/components/home/components/ContactUsComponents.vue";
 import ImageSliderComponents from "@/components/home/components/ImageSliderComponents.vue";
+import StartExamComponents from "@/components/home/components/StartExamComponents.vue";
 
 onMounted(() => {
   console.log("in home")
@@ -17,6 +18,7 @@ onMounted(() => {
     <section id="top"></section>
     <div>
       <image-slider-components/>
+      <start-exam-components/>
       <about-us-components/>
       <contact-us-components/>
     </div>
