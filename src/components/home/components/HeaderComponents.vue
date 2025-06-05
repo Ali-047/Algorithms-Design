@@ -15,7 +15,7 @@
           <img src="@/assets/icon/call.svg"/>
           <div>Contact Us</div>
         </div>
-        <div class="flex gap-2 cursor-pointer">
+        <div class="flex gap-2 cursor-pointer" @click="scrollToSection('start')">
           <img src="@/assets/icon/note.svg"/>
           <div>Start Exam</div>
         </div>
@@ -53,6 +53,7 @@ const sectionMap: Record<string, string> = {
   home: 'top',
   about: 'about-us',
   contact: 'contact-us',
+  start: 'start-exam',
 };
 </script>
 
