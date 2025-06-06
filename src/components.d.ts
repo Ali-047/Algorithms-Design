@@ -22,5 +22,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SignIn: typeof import('./components/authentication/components/signIn.vue')['default']
     StartExamComponents: typeof import('./components/home/components/StartExamComponents.vue')['default']
+    Timer: typeof import('./components/Questions/Timer.vue')['default']
   }
 }

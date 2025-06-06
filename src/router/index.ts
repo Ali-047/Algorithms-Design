@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import Home from "../components/home/Home.vue";
+import Question from "@/components/Questions/Question.vue";
 
 const routes = [
     {
@@ -9,17 +10,17 @@ const routes = [
     {
         path: '/home',
         name: 'Home',
-        component:Home
+        component: Home
     },
     {
         path: '/authentication/:type',
-        name:'auth',
-        component:() =>import("@/components/authentication/index.vue")
+        name: 'auth',
+        component: () => import("@/components/authentication/index.vue")
     },
     {
-        path: '/home/questions',
+        path: '/Question',
         name: 'Questions',
-        component:() => import("@/components/Questions/Question.vue")
+        component: Question
     }
 ];
 
