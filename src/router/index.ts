@@ -15,6 +15,11 @@ const routes = [
         path: '/authentication/:type',
         name:'auth',
         component:() =>import("@/components/authentication/index.vue")
+    },
+    {
+        path: '/home/questions',
+        name: 'Questions',
+        component:() => import("@/components/Questions/Question.vue")
     }
 ];
 
