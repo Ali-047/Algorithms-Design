@@ -151,7 +151,7 @@ class SimilarityAPIView(APIView):
             common_questions = set(user1_answers.keys()) & set(user2_answers.keys())
 
             if not common_questions:
-                similarity_results[f"user {user1.name} and user {user2.name}"] = 0
+                similarity_results[f"{user1.name},{user2.name}"] = 0
                 continue
 
             similarities = []
@@ -165,7 +165,7 @@ class SimilarityAPIView(APIView):
 
             average_similarity = sum(similarities) / len(similarities) if similarities else 0
 
-            similarity_results[f"user {user1.name} and user {user2.name}"] = round(average_similarity, 2)
+            similarity_results[f"{user1.name},{user2.name}"] = round(average_similarity, 2)
 
         return Response(similarity_results, status=status.HTTP_200_OK)
 
