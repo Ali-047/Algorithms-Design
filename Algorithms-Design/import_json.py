@@ -4,7 +4,6 @@ import uuid
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 
-# تنظیمات جنگو
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Algorithms_Design.settings')
 import django
 django.setup()
