@@ -11,4 +11,6 @@ urlpatterns = [
     path('start/questionnaire/',StartQuestionnaireView.as_view(),name = 'StartQuestionnaire'),
     path('submit/answer/',SubmitAnswerView.as_view(),name = 'submitAnswer'),
     path('similarity/', SimilarityAPIView.as_view(),name = 'similarity'),
+    path('token/', TokenObtainPairView.as_view(), name = 'token'),
+    path('token/refresh/', TokenRefreshView.as_view(), name = 'token_refresh'),
 ]

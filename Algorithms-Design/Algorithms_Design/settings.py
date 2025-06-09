@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+AUTH_USER_MODEL = 'quize.CustomUser'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -37,10 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quize'
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'quize',
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,8 +72,22 @@ TEMPLATES = [
         },
     },
 ]
+CORS_ALLOW_METHODS = [
+    "OPTIONS",
+    "POST",
+    "GET",
+    "PATCH",
+    "PUT",
+]
 
+CORS_ALLOW_HEADERS = [
+    "Accept",
+    "Authorization",
+    "Content-Type",
+    "X-CSRFToken",
+]
 WSGI_APPLICATION = 'Algorithms_Design.wsgi.application'
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Database

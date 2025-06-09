@@ -6,7 +6,7 @@ from django.db import models
 class CustomUser(AbstractUser):
     email = models.CharField(max_length=150, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
-    username = models.CharField(max_length=11, blank=True, null=True, unique=True)
+    username = models.CharField(max_length=11, unique=True)
 
     groups = models.ManyToManyField(
         'auth.Group',

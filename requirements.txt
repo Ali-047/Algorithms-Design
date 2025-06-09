@@ -1,6 +1,0 @@
-django
-django-rest-framwork
-djangorestframework-simplejwt
-
-# mysqlclient
-# django-cors-headers
