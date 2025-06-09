@@ -10,18 +10,18 @@ const routes = [
     {
         path: '/home',
         name: 'Home',
-        component: Home
+        component:Home
     },
     {
         path: '/authentication/:type',
-        name: 'auth',
-        component: () => import("@/components/authentication/index.vue")
+        name:'auth',
+        component:() =>import("@/components/authentication/index.vue")
     },
     {
-        path: '/Question',
+        path: '/home/Question',
         name: 'Questions',
         component: Question
-    }
+    },
 ];
 
 const router = createRouter({

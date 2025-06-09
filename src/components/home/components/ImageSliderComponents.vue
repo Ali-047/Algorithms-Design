@@ -1,19 +1,5 @@
-<!--<script setup lang="ts">-->
-
-
-<!--</script>-->
-
-<!--<template>-->
-<!--  <div class="w-full h-120 mt-20 flex items-center justify-around">-->
-<!--    <button class="w-10 h-10 border-2 font-bold cursor-pointer text-white rounded-3xl"> < </button>-->
-<!--    <img src="@/assets/images/exam.jpg" alt="" class="w-10/12 h-120 bg-black">-->
-<!--    <button class="w-10 h-10 border-2 font-bold cursor-pointer text-white rounded-3xl"> > </button>-->
-<!--  </div>-->
-<!--</template>-->
-
-
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeMount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import img1 from '@/assets/images/exam.jpg'
 import img2 from '@/assets/images/exam2.jpg'
 
@@ -48,7 +34,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="w-full h-120 mt-20 flex items-center justify-around overflow-hidden">
+  <div class="w-full h-120 mt-20 flex items-center justify-around overflow-hidden isOnScreen" id="home">
     <button @click="prevImage" class="w-10 h-10 border-2 font-bold cursor-pointer text-white rounded-3xl hover:bg-white hover:text-black transition"> &lt; </button>
 
     <Transition

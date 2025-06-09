@@ -2,7 +2,7 @@
 
 @theme {
     --color-primary: #9333ea;
-    --color-gray: oklch(0.178 0 89.876);
+    --color-gray: oklch(0.269 0 0);
     --color-gray-dark:oklch(0.17 0 0);
     --spacing-1: 0.25rem;
 }

@@ -6,6 +6,7 @@ import AboutUsComponents from "@/components/home/components/AboutUsComponents.vu
 import ContactUsComponents from "@/components/home/components/ContactUsComponents.vue";
 import ImageSliderComponents from "@/components/home/components/ImageSliderComponents.vue";
 import StartExamComponents from "@/components/home/components/StartExamComponents.vue";
+import FraudDetectionComponents from "@/components/home/components/FraudDetectionComponents.vue";
 
 onMounted(() => {
   console.log("in home")
@@ -15,10 +16,10 @@ onMounted(() => {
 <template>
   <div>
     <header-components/>
-    <section id="top"></section>
     <div>
-      <image-slider-components/>
+      <image-slider-components />
       <start-exam-components/>
+      <fraud-detection-components/>
       <about-us-components/>
       <contact-us-components/>
     </div>

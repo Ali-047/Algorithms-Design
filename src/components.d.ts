@@ -13,6 +13,7 @@ declare module 'vue' {
     ContactUsComponents: typeof import('./components/home/components/ContactUsComponents.vue')['default']
     FiledInput: typeof import('./components/filedInput.vue')['default']
     FooterComponents: typeof import('./components/home/components/FooterComponents.vue')['default']
+    FraudDetectionComponents: typeof import('./components/home/components/FraudDetectionComponents.vue')['default']
     HeaderComponents: typeof import('./components/home/components/HeaderComponents.vue')['default']
     Home: typeof import('./components/home/Home.vue')['default']
     ImageSliderComponents: typeof import('./components/home/components/ImageSliderComponents.vue')['default']
