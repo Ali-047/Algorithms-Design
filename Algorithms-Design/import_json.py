@@ -5,36 +5,33 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 
 # تنظیمات جنگو
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Algorithms_Design.settings')  # نام پروژه با خط تیره
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Algorithms_Design.settings')
 import django
 django.setup()
 
-# حالا مدل‌ها رو وارد می‌کنیم
 from quize.models import CustomUser, Question, Answer
 
 def load_json_data(file_path):
-    """خواندن فایل JSON"""
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
     except FileNotFoundError:
-        print(f"فایل {file_path} یافت نشد.")
+        print(f"file {file_path} was not found.")
         return None
     except json.JSONDecodeError:
-        print("خطا در خواندن فایل JSON. لطفاً ساختار فایل را بررسی کنید.")
+        print("Error reading the JSON file. Please check the file structure.")
         return None
 
 def create_users(data):
-    """ایجاد کاربران از داده‌های JSON"""
     for username, answers in data.items():
         if username == "Test for Bug":
-            continue  # این کلید برای سوالاته، نه کاربر
+            continue
         user, created = CustomUser.objects.get_or_create(
             username=username,
             defaults={
                 'email': f"{username.lower()}@example.com",
                 'name': username,
-                'password': make_password('defaultpassword123'),  # رمز پیش‌فرض
+                'password': make_password('123456789'),
             }
         )
         if created:
@@ -43,12 +40,10 @@ def create_users(data):
             print(f"کاربر {username} از قبل وجود داشت.")
 
 def create_questions(data):
-    """ایجاد سوالات از کلید 'Test for Bug'"""
     test_data = data.get("Test for Bug", [])
     for item in test_data:
         qnumber = item.get("qnumber")
         description = item.get("description", "")
-        # اگر description خالی یا null یا 0 باشه، یه متن پیش‌فرض می‌ذاریم
         if not description or description == 0:
             description = f"Question {qnumber}"
         question, created = Question.objects.get_or_create(
@@ -56,7 +51,7 @@ def create_questions(data):
             defaults={
                 'name': f"Q{qnumber}",
                 'text': description,
-                'all_questions': 3,  # تعداد کل سوالات (ثابت)
+                'all_questions': 3,
             }
         )
         if created:
@@ -65,7 +60,6 @@ def create_questions(data):
             print(f"سوال {qnumber} از قبل وجود داشت.")
 
 def create_answers(data):
-    """ایجاد پاسخ‌ها برای هر کاربر"""
     for username, answers in data.items():
         if username == "Test for Bug":
             continue
@@ -84,7 +78,6 @@ def create_answers(data):
                 print(f"سوال {qnumber} یافت نشد.")
                 continue
 
-            # اگر description خالی یا null باشه، None می‌ذاریم
             text_answer = description if description else None
 
             try:
@@ -96,26 +89,22 @@ def create_answers(data):
                     }
                 )
                 if created:
-                    print(f"پاسخ برای سوال {qnumber} توسط {username} ایجاد شد.")
+                    print(f"Answer for question {qnumber} has been created by {username}.")
                 else:
-                    print(f"پاسخ برای سوال {qnumber} توسط {username} از قبل وجود داشت.")
+                    print(f"Answer for question {qnumber} by {username} already existed.")
             except ValidationError as e:
-                print(f"خطا در ایجاد پاسخ برای {username} و سوال {qnumber}: {e}")
+                print(f"Error creating answer for {username} and question {qnumber}: {e}")
 
 def import_json_to_db(json_file_path):
-    """تابع اصلی برای وارد کردن داده‌های JSON به دیتابیس"""
     data = load_json_data(json_file_path)
     if not data:
         return
 
-    # ایجاد کاربران
     create_users(data)
-    # ایجاد سوالات
     create_questions(data)
-    # ایجاد پاسخ‌ها
     create_answers(data)
-    print("وارد کردن داده‌ها به دیتابیس با موفقیت انجام شد.")
+    print("complete")
 
 if __name__ == "__main__":
-    json_file_path = "test.json"  # مسیر فایل JSON
+    json_file_path = "test.json"
     import_json_to_db(json_file_path)
